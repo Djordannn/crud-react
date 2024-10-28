@@ -3,8 +3,6 @@
 import React, { useState } from "react";
 import FormInput from "@/components/Form_input/index";
 import Todo from "@/Todolist/todo";
-import { todo } from "node:test";
-import { text } from "stream/consumers";
 
 const Home = () => {
   // Declare useState
@@ -18,8 +16,26 @@ const Home = () => {
   const [email, setEmail] = useState<string>("");
   const [data, setData] = useState<any>("");
   // Todo
-  const [todoValue, setTodoValue] = useState<string>("");
-  const [todoData, setTodoData] = useState<string>("");
+  const [todo, setTodo] = useState<string>("");
+  const [dataTodo, setTodoData] = useState<any>("");
+
+  const saveTodo = () => {
+    setTodoData([...dataTodo, { todo }]);
+  };
+
+  const addTodo = () => {
+    return dataTodo.map((value: any, index: number) => {
+      return (
+        <div>
+          <div key={`${value}-${index}`}>
+            <input type="checkbox" />
+            <p>{value.todo}</p>
+            <button type="button">delete</button>
+          </div>
+        </div>
+      );
+    });
+  };
 
   const onIncrement = () => {
     setCount(count + 1); // Memperbarui data pada state "count" melalui fungsi setCount
@@ -65,24 +81,6 @@ const Home = () => {
   };
 
   // Todo
-  const onTodo = (e: any) => {
-    setTodoValue(e.target.value);
-  };
-
-  const onTodoSave = () => {
-    setTodoData([...todoData, { todoValue }]);
-    console.log(todoData);
-  };
-
-  const printTodo = () => {
-    return todoData.map((value, index) => {
-      return (
-        <div key={`${value}-${index}`}>
-          <div>{value.todoValue}</div>
-        </div>
-      );
-    });
-  };
 
   // console.log("Data from state", data);
 
@@ -138,7 +136,7 @@ const Home = () => {
       <div className="">
         <table>
           <thead>
-            <td className="border border-collapse">
+            <tr className="border border-collapse">
               <th className="border border-collapse">No</th>
               <th className="border border-collapse">Name</th>
               <th className="border border-collapse">Age</th>
@@ -147,19 +145,20 @@ const Home = () => {
                 <button type="button">Edit</button>
                 <button type="button">Delete</button>
               </th>
-            </td>
+            </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
-      <div className="py-52">
-        <span>{printTodo}</span>
-        <Todo type="text" label="Form input" onChange={onTodo} />
-        <button
-          type="button"
-          className="bg-slate-900 text-white rounded-sm p-2 block mt-2"
-          onClick={onTodoSave}
-        >
+
+      <div className="mt-24">
+        <h1>{todo}</h1>
+        <Todo
+          onChange={(e: any) => {
+            setTodo(e.target.value);
+          }}
+        />
+        <button type="button" onClick={saveTodo}>
           Add
         </button>
       </div>

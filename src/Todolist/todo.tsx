@@ -1,22 +1,22 @@
 "use client";
 
-import { on } from "events";
+import { type } from "os";
 import React from "react";
 interface ITodo {
-  label?: string;
   type: string;
-  onChange?: (e: any) => void;
+  label?: string;
+  onChange?: () => void;
 }
 
-const Todo: React.FC<ITodo> = ({ label, type, onChange }) => {
+const Todo: React.FC<ITodo> = (props) => {
   return (
     <div>
       <div>
-        <label htmlFor="">{label}</label>
+        <label htmlFor="">Add todo</label>
         <input
-          type={type}
-          className="border-slate-900 border-2 rounded-sm flex flex-col mt-2 mb-2"
-          onChange={onChange}
+          type={props.type}
+          className="border-slate-900 border-2 flex flex-col"
+          onChange={props.onChange}
         />
       </div>
     </div>
