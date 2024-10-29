@@ -6,6 +6,7 @@ interface IFromInput {
   label?: string;
   placeholder?: string;
   onChange?: (e: any) => void;
+  ref?: any;
 }
 
 const FormInput: React.FC<IFromInput> = ({
@@ -13,6 +14,7 @@ const FormInput: React.FC<IFromInput> = ({
   label,
   placeholder,
   onChange,
+  ref,
 }) => {
   return (
     <div>
@@ -21,6 +23,7 @@ const FormInput: React.FC<IFromInput> = ({
           {label}
         </label>
         <input
+          ref={ref}
           className="border-2 border-slate-600 p-2 rounded-md"
           type={type}
           placeholder={placeholder}

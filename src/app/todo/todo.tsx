@@ -5,7 +5,7 @@ import React from "react";
 interface ITodo {
   type: string;
   label?: string;
-  onChange?: () => void;
+  onChange?: (e: any) => void;
 }
 
 const Todo: React.FC<ITodo> = (props) => {

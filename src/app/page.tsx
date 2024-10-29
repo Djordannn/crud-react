@@ -1,10 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import FormInput from "@/components/Form_input/index";
-import Todo from "@/Todolist/todo";
+
+import Todo from "@/app/todo/todo";
+
+import { FcGoogle } from "react-icons/fc";
+// import { FiEye } from "react-icons/fi";
+// import { FiEyeOff } from "react-icons/fi";
 
 const Home = () => {
+  // create ref object
+  const passwordRef = useRef<HTMLInputElement>(null);
   // Declare useState
   const [count, setCount] = React.useState<number>(0);
   // count = array[0], setCount = array[1]
@@ -14,28 +21,32 @@ const Home = () => {
   const [name, setName] = useState<string>("");
   const [age, setAge] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  // other option
+  const [user, setUser] = useState<{
+    name: string;
+    age: string;
+    email: string;
+  }>({
+    name: "",
+    age: "",
+    email: "",
+  });
   const [data, setData] = useState<any>("");
-  // Todo
-  const [todo, setTodo] = useState<string>("");
-  const [dataTodo, setTodoData] = useState<any>("");
 
-  const saveTodo = () => {
-    setTodoData([...dataTodo, { todo }]);
-  };
+  // Password
+  const [password, setPassword] = useState("");
+  const [type, setType] = useState("password");
+  // const [icon, setIcon] = useState(FiEyeOff);
 
-  const addTodo = () => {
-    return dataTodo.map((value: any, index: number) => {
-      return (
-        <div>
-          <div key={`${value}-${index}`}>
-            <input type="checkbox" />
-            <p>{value.todo}</p>
-            <button type="button">delete</button>
-          </div>
-        </div>
-      );
-    });
-  };
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  if (type === "password");
+  let activeType;
+  if (isVisible) {
+    activeType = "text";
+  } else {
+    activeType = "password";
+  }
 
   const onIncrement = () => {
     setCount(count + 1); // Memperbarui data pada state "count" melalui fungsi setCount
@@ -45,9 +56,9 @@ const Home = () => {
     setInputValue(e.target.value);
   };
 
-  // const onHandleName = (e: any) => {
-  //   setName(e.target.value);
-  // };
+  const onHandleName = (e: any) => {
+    setName(e.target.value);
+  };
 
   const onHandleAge = (e: any) => {
     setAge(e.target.value);
@@ -64,8 +75,11 @@ const Home = () => {
     // setData(temp);
 
     // cara 2
-    setData([...data, { name, age, email }]);
-    printData;
+    // setData([...data, { name, age, email }]);
+    // printData;
+    if (passwordRef.current) {
+      console.log("Ref from password INPUT :", passwordRef.current.value);
+    }
   };
 
   const printData = () => {
@@ -107,7 +121,7 @@ const Home = () => {
       <div id="form-data" className="">
         <FormInput
           onChange={(e: any) => {
-            setName(e.target.value);
+            setUser({ ...user, name: e.target.value });
           }}
           type="text"
           label="Name"
@@ -117,14 +131,31 @@ const Home = () => {
           type="number"
           label="Age"
           placeholder="Type your age"
-          onChange={onHandleAge}
+          onChange={(e: any) => {
+            setUser({ ...user, age: e.target.value });
+          }}
         />
-        <FormInput
-          type="email"
-          label="Email"
-          placeholder="Type your email"
-          onChange={onHandleEmail}
-        />
+        <div>
+          <div>
+            <FormInput
+              ref={passwordRef}
+              type={activeType}
+              label="Password"
+              placeholder="Type your password"
+              onChange={(e: any) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => setIsVisible(!isVisible)}
+              className="bg-slate-600 rounded-lg"
+            >
+              click
+            </button>
+          </div>
+          s
+        </div>
         <button
           type="button"
           className="bg-gray-400 p-2 rounded-md mt-3"
@@ -132,35 +163,21 @@ const Home = () => {
         >
           Submit
         </button>
+        <FcGoogle />
       </div>
-      <div className="">
-        <table>
+      <div className="mt-5">
+        <table className="w-[100%]">
           <thead>
             <tr className="border border-collapse">
               <th className="border border-collapse">No</th>
               <th className="border border-collapse">Name</th>
               <th className="border border-collapse">Age</th>
               <th className="border border-collapse">Email</th>
-              <th className="border border-collapse">
-                <button type="button">Edit</button>
-                <button type="button">Delete</button>
-              </th>
+              <th className="border border-collapse">Action</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>{printData}</tbody>
         </table>
-      </div>
-
-      <div className="mt-24">
-        <h1>{todo}</h1>
-        <Todo
-          onChange={(e: any) => {
-            setTodo(e.target.value);
-          }}
-        />
-        <button type="button" onClick={saveTodo}>
-          Add
-        </button>
       </div>
     </div>
   );
