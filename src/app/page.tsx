@@ -154,7 +154,6 @@ const Home = () => {
               click
             </button>
           </div>
-          s
         </div>
         <button
           type="button"

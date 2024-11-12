@@ -1,6 +1,5 @@
 "use client";
 
-import { create } from "domain";
 import { FC, ReactNode, useState } from "react";
 import { createContext } from "react";
 
@@ -28,4 +27,3 @@ const LanguageProvider: FC<ILanguageProviderProps> = ({ children }) => {
 };
 
 export default LanguageProvider;
-// export default languageContext;

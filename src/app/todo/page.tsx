@@ -36,8 +36,7 @@ const Todolist = () => {
   };
 
   const onDelete = (index: any) => {
-    console.log(index);
-
+    // console.log(index);
     setTodoData((prevData) => prevData.filter((kosong, i) => i !== index));
   };
 

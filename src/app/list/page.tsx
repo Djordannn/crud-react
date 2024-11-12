@@ -7,6 +7,7 @@ import axios from "axios";
 const List = () => {
   // Data from context
   const { language } = useContext(languageContext);
+  //
   const [data, setData] = useState<any[]>([]);
   const [count, setCount] = useState<number>(0);
   const [isTrue, setIsTrue] = useState<boolean>(false);
@@ -33,21 +34,12 @@ const List = () => {
       const respons = await axios.get(
         "https://jsonplaceholder.typicode.com/users"
       );
-      setData(respons);
+      console.log(respons.data);
+      setData(respons.data);
     } catch (err) {
       console.log(err);
     }
   };
-
-  // const getView = () => {
-  //   return data.map((value, index) => {
-  //     return (
-  //       <ul key={`${value}-${index}`}>
-  //         <li>{value}</li>;
-  //       </ul>
-  //     );
-  //   });
-  // };
 
   return (
     <div>
